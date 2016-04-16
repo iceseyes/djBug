@@ -16,3 +16,4 @@ class Ticket(models.Model):
     that he doesn't like in a project, he *open* a new ticket.
     """
     subject = models.CharField(max_length=40, null=False, blank=False, default=None)
+    description = models.TextField()

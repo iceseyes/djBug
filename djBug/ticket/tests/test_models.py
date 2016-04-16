@@ -13,7 +13,7 @@ from django.test.testcases import TestCase
 from django.db import transaction
 from django.db.utils import IntegrityError
 
-from django.utils.datetime_safe import datetime
+from django.utils import timezone
 
 from djBug.ticket.models import Ticket
 
@@ -28,7 +28,7 @@ class TicketTestCase(TestCase):
         Test creation of a new ticket
         """
 
-        start_time = datetime.now()
+        start_time = timezone.now()
 
         # create a new empty ticket fails cause at least a subject must be provided.
         with transaction.atomic():
@@ -45,7 +45,7 @@ class TicketTestCase(TestCase):
 
         # ...every tickect must have a creation datetime which must be between
         # the begin of this method and this moment
-        end_time = datetime.now()
+        end_time = timezone.now()
         self.assertGreaterEqual(ticket.created_on, start_time)
         self.assertLessEqual(ticket.created_on, end_time)
 

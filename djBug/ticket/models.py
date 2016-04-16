@@ -6,7 +6,6 @@ Those models describe a bug notification and its history.
 """
 
 from django.db import models
-from django.utils import timezone
 
 
 class Ticket(models.Model):
@@ -32,5 +31,5 @@ class Ticket(models.Model):
     subject = models.CharField(max_length=40, null=False, blank=False, default=None)
     description = models.TextField()
     state = models.CharField(max_length=10, choices=STATES, default=STATE_TO_APPROVE)
-    created_on = models.DateTimeField(default=timezone.now)
-    last_update_on = models.DateTimeField(default=timezone.now)
+    created_on = models.DateTimeField(auto_now_add=True)
+    last_update_on = models.DateTimeField(auto_now=True)

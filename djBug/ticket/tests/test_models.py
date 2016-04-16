@@ -50,5 +50,7 @@ class TicketTestCase(TestCase):
         self.assertLessEqual(ticket.created_on, end_time)
 
         # ...every ticket must have a last_update_on field with datetime of last
-        # update. Creation is an update so created_on == last_update_on
-        self.assertEqual(ticket.last_update_on, ticket.created_on)
+        # update. Creation is an update so last_update_on is between
+        # the begin of this method and this moment but maybe different from created_on
+        self.assertGreaterEqual(ticket.last_update_on, start_time)
+        self.assertLessEqual(ticket.last_update_on, end_time)

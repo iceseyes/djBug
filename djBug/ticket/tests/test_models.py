@@ -63,10 +63,42 @@ class TicketTestCase(TestCase):
         # create a dummy ticket for testing
         ticket = Ticket.objects.create(subject="I can't create a new bug!!")
 
+        # save created_on and last_update_on
+        init_created_on = ticket.created_on
+        init_last_update_on = ticket.last_update_on
+
         # you can update subject
         newSubject = "I cannot create a new bug!!!"
         ticket.subject = newSubject
         ticket.save()
 
         self.assertEqual(ticket.subject, newSubject)
-        self.fail("Incomplete Test")
+        self.assertEqual(ticket.created_on, init_created_on)
+        self.assertNotEqual(ticket.last_update_on, init_last_update_on)
+
+        # save new last_update
+        init_last_update_on = ticket.last_update_on
+
+        # you can update description
+        newDescription = "I can't find a way to submit a new bug... please update UI."
+        ticket.description = newDescription
+        ticket.save()
+
+        self.assertEqual(ticket.subject, newSubject)
+        self.assertEqual(ticket.description, newDescription)
+        self.assertEqual(ticket.created_on, init_created_on)
+        self.assertNotEqual(ticket.last_update_on, init_last_update_on)
+
+        # save new last_update
+        init_last_update_on = ticket.last_update_on
+
+        # you can update description
+        newState = Ticket.STATE_APPROVED
+        ticket.state = newState
+        ticket.save()
+
+        self.assertEqual(ticket.subject, newSubject)
+        self.assertEqual(ticket.description, newDescription)
+        self.assertEqual(ticket.state, newState)
+        self.assertEqual(ticket.created_on, init_created_on)
+        self.assertNotEqual(ticket.last_update_on, init_last_update_on)

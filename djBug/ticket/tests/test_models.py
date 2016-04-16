@@ -33,4 +33,7 @@ class TicketTestCase(TestCase):
         # therefore create a new empty ticket with subject.
         ticket = Ticket.objects.create(subject="I can't create a new bug!!")
 
+        # ...an empty ticket has no description
+        self.assertEqual(ticket.description, "")
+
         self.fail("Incomplete Test")

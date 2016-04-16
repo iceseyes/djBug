@@ -36,4 +36,7 @@ class TicketTestCase(TestCase):
         # ...an empty ticket has no description
         self.assertEqual(ticket.description, "")
 
+        # ...default state is TO_APPROVE
+        self.assertEqual(ticket.state, Ticket.STATE_TO_APPROVE)
+
         self.fail("Incomplete Test")

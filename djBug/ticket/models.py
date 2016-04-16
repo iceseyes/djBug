@@ -33,3 +33,4 @@ class Ticket(models.Model):
     description = models.TextField()
     state = models.CharField(max_length=10, choices=STATES, default=STATE_TO_APPROVE)
     created_on = models.DateTimeField(default=timezone.now)
+    last_update_on = models.DateTimeField(default=timezone.now)

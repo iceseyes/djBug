@@ -43,10 +43,12 @@ class TicketTestCase(TestCase):
         # ...default state is TO_APPROVE
         self.assertEqual(ticket.state, Ticket.STATE_TO_APPROVE)
 
-        # ...every tickect must have a creation datetime which must be between
+        # ...every ticket must have a creation datetime which must be between
         # the begin of this method and this moment
         end_time = timezone.now()
         self.assertGreaterEqual(ticket.created_on, start_time)
         self.assertLessEqual(ticket.created_on, end_time)
 
-        self.fail("Incomplete Test")
+        # ...every ticket must have a last_update_on field with datetime of last
+        # update. Creation is an update so created_on == last_update_on
+        self.assertEqual(ticket.last_update_on, ticket.created_on)

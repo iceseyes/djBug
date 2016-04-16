@@ -54,3 +54,19 @@ class TicketTestCase(TestCase):
         # the begin of this method and this moment but maybe different from created_on
         self.assertGreaterEqual(ticket.last_update_on, start_time)
         self.assertLessEqual(ticket.last_update_on, end_time)
+
+    def test_update(self):
+        """
+        Test update of record for model Ticket. You can't update as you want
+        last_update_on and created_on fields, but others fields can be changed.
+        """
+        # create a dummy ticket for testing
+        ticket = Ticket.objects.create(subject="I can't create a new bug!!")
+
+        # you can update subject
+        newSubject = "I cannot create a new bug!!!"
+        ticket.subject = newSubject
+        ticket.save()
+
+        self.assertEqual(ticket.subject, newSubject)
+        self.fail("Incomplete Test")

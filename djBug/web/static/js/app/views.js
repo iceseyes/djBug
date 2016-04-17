@@ -2,29 +2,55 @@
 
 var app = app || {}
 
-app.HomeView = Backbone.View.extend({
-	el: '#tickets',
-	template: _.template( $('#tickets-template').html() ),
+app.TicketView = Backbone.View.extend({
+	className: 'item',
+	template: _.template( $('#ticket-template').html() ),
+	
+	events: {
+		"click .openButton": 'showDescription',
+		"click .closeButton": 'hideDescription',
+	},
 	
 	initialize: function() {
-		this.listenTo(app.tickets, 'add', this.addOne);
-		this.listenTo(app.tickets, 'reset', this.addAll);
-		this.render();
+		this.listenTo(this.model, 'change', this.render);
 	},
 	
 	render: function() {
-		var content = this.template();
-		this.$el.html(content);
-		app.tickets.fetch();
+		this.$el.html( this.template( this.model.attributes ) );
+		this.$(".item-descr").hide();
+		return this;
 	},
 	
+	showDescription: function() {
+		this.$(".item-descr").show();
+		this.$(".openButton").hide();
+	},
+	
+	hideDescription: function() {
+		this.$(".item-descr").hide();
+		this.$(".openButton").show();
+	}
+});
+
+app.HomeView = Backbone.View.extend({
+	el: '#tickets',
+	tickets: new app.TicketCollection(),
+	
+	initialize: function() {
+		this.listenTo(this.tickets, 'add', this.addOne);
+		this.listenTo(this.tickets, 'reset', this.addAll);
+		
+		this.tickets.fetch();
+	},
+	
+	
 	addOne: function(ticket) {
-		var view = new app.TicketView();
+		var view = new app.TicketView({ model: ticket });
 		this.$('#ticket-list').append( view.render().el );
 	},
 	
 	addAll: function() {
 		this.$('#ticket-list').html('');
-		app.Tickets.each(this.addOne, this);
+		_.each(this.tickets, this.addOne, this);
 	}
 });

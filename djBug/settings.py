@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djBug.ticket.apps.TicketConfig',
+    'djBug.web.apps.WebConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

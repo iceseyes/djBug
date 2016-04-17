@@ -14,6 +14,8 @@ app.TicketView = Backbone.View.extend({
 		"click .closedStateButton": 'setClosedState',
 		"click .notabugStateButton": 'setNotABugState',
 		"click .wontfixStateButton": 'setWontFixState',
+		"click .edit": 'showDescriptionArea',
+		"blur .editable": 'savedescr'
 	},
 	
 	initialize: function() {
@@ -36,6 +38,25 @@ app.TicketView = Backbone.View.extend({
 		this.$(".item-descr").hide();
 		this.$(".openButton").show();
 		this.$(".closeButton").hide();
+		this.hideDescriptionArea();
+	},
+	
+	showDescriptionArea: function() {
+		this.$(".form").show();
+		this.$(".statictext").hide();
+		this.$(".edit").hide();
+	},
+	
+	hideDescriptionArea: function() {
+		this.$(".form").hide();
+		this.$(".statictext").show();
+		this.$(".edit").show();
+	},
+	
+	savedescr: function() {
+		this.model.set("description", this.$(".editable").val());
+		this.hideDescriptionArea();
+		this.model.save();
 	},
 	
 	setToApproveState: function() {

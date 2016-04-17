@@ -25,9 +25,22 @@
 			<h4 class="ui horizontal divider header">
   				Description
 			</h4>
+
 			<br/>
-			<p><%= description %></p>
+
+			<div class="ui right floated content">
+                <div class="edit ui button"><i class="pencil icon"></i>Edit</div>
+			</div>			
+
+			<p class="statictext"><%= description %></p>
+
+			<div class="ui form">
+  				<div class="field">
+    			<label>Description</label>
+    			<textarea class="editable"><%= description %></textarea>
+  			</div>
 		</div>
+
 		<div class="extra item-descr container">
 			<div class="ui divider"></div>
        		<p><small>Created on <%= created_on %>. Last Update on <%= last_update_on %></small></p>

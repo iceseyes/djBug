@@ -15,18 +15,30 @@
   <script type="text/template" id="ticket-template">
 	<div class="right floated content">
     	<div class="openButton ui button"><i class="expand icon"></i>Show</div>
+		<div class="closeButton ui button"><i class="compress icon"></i>hide</div>
     </div>
     
     <div class="content">
 		<a class="header"><i class="<%= state_icon %> icon"></i><%= subject %></a>
       	
 		<div class="description item-descr">
+			<h4 class="ui horizontal divider header">
+  				<i class="tag icon"></i>
+  				Description
+			</h4>
 			<p><%= description %></p>
 		</div>
-		<div class="extra item-descr">
+		<div class="extra item-descr container">
+			<div class="ui divider"></div>
        		<p><small>Created on <%= created_on %>. Last Update on <%= last_update_on %></small></p>
 			<div class="ui divider"></div>
-			<div class="closeButton ui button"><i class="Compress icon"></i>hide</div>
+			<div class="ui right floated buttons">
+                <button class="ui <% if(state=="to_approve") { %> disabled <% } %> button"><i class="folder open icon"></i>To Approve</button>
+                <button class="ui <% if(state=="approved") { %> disabled <% } %> button"><i class="bug icon"></i>Approved</button>
+                <button class="ui <% if(state=="closed") { %> disabled <% } %> button"><i class="folder close icon"></i>Closed</button>
+				<button class="ui <% if(state=="not_a_bug") { %> disabled <% } %> button"><i class="Thumbs Down icon"></i>Not a Bug</button>
+				<button class="ui <% if(state=="wontfix") { %> disabled <% } %> button"><i class="ban icon"></i>Won't Fix</button>
+            </div>
 		</div>
     </div>
   </script>

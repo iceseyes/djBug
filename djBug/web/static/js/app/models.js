@@ -10,6 +10,8 @@ app.TicketModel = Backbone.Model.extend({
 			this.set("state_icon", "close");
 		} else if(this.get("state")==="not_a_bug") {
 			this.set("state_icon", "Thumbs Down");
+		} else if(this.get("state")==="wontfix") {
+			this.set("state_icon", "ban");
 		} else {
 			this.set("state_icon", "bug");
 		}

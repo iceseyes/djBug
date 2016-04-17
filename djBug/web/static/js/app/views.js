@@ -17,18 +17,20 @@ app.TicketView = Backbone.View.extend({
 	
 	render: function() {
 		this.$el.html( this.template( this.model.attributes ) );
-		this.$(".item-descr").hide();
+		this.hideDescription();
 		return this;
 	},
 	
 	showDescription: function() {
 		this.$(".item-descr").show();
 		this.$(".openButton").hide();
+		this.$(".closeButton").show();
 	},
 	
 	hideDescription: function() {
 		this.$(".item-descr").hide();
 		this.$(".openButton").show();
+		this.$(".closeButton").hide();
 	}
 });
 

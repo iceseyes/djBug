@@ -11,18 +11,45 @@
   <!-- Site Properties -->
   <title>djBug - Ticketing System</title>
   <link rel="stylesheet" type="text/css" href="semantic.ui/semantic.min.css">
-
-  <script src="{% static 'js/libs/jquery-2.2.2.js' %}"></script>
-  <script src="{% static 'js/libs/underscore.js' %}"></script>
-  <script src="{% static 'js/libs/backbone.js' %}"></script>
-  <script src="{% static 'semantic.ui/semantic.min.js' %}"></script>
+  
+  <script type="text/template" id="tickets-template">
+	Write me!!!
+	<div id="ticket-list" class="ui middle aligned divided list">
+  	</div>
+  </script>
 </head>
 
 <body>
   <div class="ui main text container">
    <h1 class="ui header">djBug</h1>
    <h2 class="ui header">Ticketing System</h2>
-   <p>This is test page.</p>
   </div>
+  
+  <div id="tickets" class="ui main container">  	
+  </div>
+  
+  <script src="{% static 'js/libs/jquery-2.2.2.js' %}"></script>
+  <script src="{% static 'js/libs/underscore.js' %}"></script>
+  <script src="{% static 'js/libs/backbone.js' %}"></script>
+  <script src="{% static 'semantic.ui/semantic.min.js' %}"></script>
+  
+  <script>
+  	app = {
+  		api: {
+  			tickets: {
+  				base_url: "{% url 'ticket-list' %}"
+  			}
+  		}
+  	}
+  </script>
+  <script src="{% static 'js/app/models.js' %}"></script>
+  <script src="{% static 'js/app/views.js' %}"></script>
+  <script src="{% static 'js/app/main.js' %}"></script>
+  <script>
+  	$(function() {
+		// Kick things off by creating the **App**.
+		new app.HomeView();
+	});
+  </script>
 </body>
 </html>

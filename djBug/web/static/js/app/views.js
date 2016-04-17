@@ -9,6 +9,11 @@ app.TicketView = Backbone.View.extend({
 	events: {
 		"click .openButton": 'showDescription',
 		"click .closeButton": 'hideDescription',
+		"click .toApproveStateButton": 'setToApproveState',
+		"click .approvedStateButton": 'setApprovedState',
+		"click .closedStateButton": 'setClosedState',
+		"click .notabugStateButton": 'setNotABugState',
+		"click .wontfixStateButton": 'setWontFixState',
 	},
 	
 	initialize: function() {
@@ -31,6 +36,31 @@ app.TicketView = Backbone.View.extend({
 		this.$(".item-descr").hide();
 		this.$(".openButton").show();
 		this.$(".closeButton").hide();
+	},
+	
+	setToApproveState: function() {
+		this.model.set("state", "to_approve");
+		this.model.save();
+	},
+	
+	setApprovedState: function() {
+		this.model.set("state", "approved");
+		this.model.save();
+	},
+	
+	setClosedState: function() {
+		this.model.set("state", "closed");
+		this.model.save();
+	},
+	
+	setNotABugState: function() {
+		this.model.set("state", "not_a_bug");
+		this.model.save();
+	},
+	
+	setWontFixState: function() {
+		this.model.set("state", "wontfix");
+		this.model.save();
 	}
 });
 

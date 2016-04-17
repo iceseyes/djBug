@@ -18,5 +18,5 @@ router = routers.DefaultRouter()
 router.register(r'tickets', views.TicketViewSet)
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
+    url(r'^', include(router.urls)),
 ]

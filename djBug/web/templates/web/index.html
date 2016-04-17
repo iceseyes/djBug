@@ -33,11 +33,11 @@
        		<p><small>Created on <%= created_on %>. Last Update on <%= last_update_on %></small></p>
 			<div class="ui divider"></div>
 			<div class="ui right floated buttons">
-                <button class="ui <% if(state=="to_approve") { %> disabled <% } %> button"><i class="folder open icon"></i>To Approve</button>
-                <button class="ui <% if(state=="approved") { %> disabled <% } %> button"><i class="bug icon"></i>Approved</button>
-                <button class="ui <% if(state=="closed") { %> disabled <% } %> button"><i class="folder close icon"></i>Closed</button>
-				<button class="ui <% if(state=="not_a_bug") { %> disabled <% } %> button"><i class="Thumbs Down icon"></i>Not a Bug</button>
-				<button class="ui <% if(state=="wontfix") { %> disabled <% } %> button"><i class="ban icon"></i>Won't Fix</button>
+                <button class="toApproveStateButton ui <% if(state=="to_approve") { %> disabled <% } %> button"><i class="folder open icon"></i>To Approve</button>
+                <button class="approvedStateButton ui <% if(state=="approved") { %> disabled <% } %> button"><i class="bug icon"></i>Approved</button>
+                <button class="closedStateButton ui <% if(state=="closed") { %> disabled <% } %> button"><i class="folder close icon"></i>Closed</button>
+				<button class="notabugStateButton ui <% if(state=="not_a_bug") { %> disabled <% } %> button"><i class="thumbs down icon"></i>Not a Bug</button>
+				<button class="wontfixStateButton ui <% if(state=="wontfix") { %> disabled <% } %> button"><i class="ban icon"></i>Won't Fix</button>
             </div>
 		</div>
     </div>
@@ -71,8 +71,24 @@
   <script src="{% static 'js/app/views.js' %}"></script>
   <script src="{% static 'js/app/main.js' %}"></script>
   
+   {% csrf_token %}
   <script>
+  	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	
   	$(function() {
+  		var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+  		
+  		$.ajaxSetup({
+  		    beforeSend: function(xhr, settings) {
+  		        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+  		            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+  		        }
+  		    }
+  		});
+  		
 		new app.HomeView();
 	});
   </script>

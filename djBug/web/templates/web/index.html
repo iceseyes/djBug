@@ -64,7 +64,24 @@
   </div>
   
   <div id="tickets" class="ui text container">
-    <h2 class="ui header">Tickets</h2>
+  	<div class="add ui mini right floated icon button"><i class="plus icon"></i></div>
+  	<div class="closeForm ui mini right floated icon button"><i class="minus icon"></i></div>
+  	<h2 class="ui header">
+    	Tickets
+    </h2>
+    
+    <form class="newticket ui form">
+	  <div class="field">
+	    <label>Subject</label>
+	    <input type="text" name="subject" placeholder="ticket subject">
+	  </div>
+	  <div class="field">
+	    <label>Description</label>
+	    <textarea class="newDescr"></textarea>
+	  </div>
+	  <button class="sendTicket ui button" type="submit"><i class="send icon"></i>Submit</button>
+	</form>
+	
   	<div id="ticket-list" class="ui middle aligned celled list">
   	</div>  	
   </div>

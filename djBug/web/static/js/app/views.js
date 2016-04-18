@@ -89,13 +89,19 @@ app.HomeView = Backbone.View.extend({
 	el: '#tickets',
 	tickets: new app.TicketCollection(),
 	
+	events: {
+		"click .add": 'showNewForm',
+		"click .closeForm": 'hideNewForm',
+		"click .sendTicket": 'createTicket',
+	},
+	
 	initialize: function() {
 		this.listenTo(this.tickets, 'add', this.addOne);
 		this.listenTo(this.tickets, 'reset', this.addAll);
 		
 		this.tickets.fetch();
+		this.hideNewForm();
 	},
-	
 	
 	addOne: function(ticket) {
 		var view = new app.TicketView({ model: ticket });
@@ -105,5 +111,34 @@ app.HomeView = Backbone.View.extend({
 	addAll: function() {
 		this.$('#ticket-list').html('');
 		_.each(this.tickets, this.addOne, this);
+	},
+	
+	hideNewForm: function() {
+		this.$(".newticket").hide();
+		this.$(".closeForm").hide();
+		this.$(".add").show();
+	},
+	
+	showNewForm: function() {
+		this.$(".newticket").show();
+		this.$(".closeForm").show();
+		this.$(".add").hide();
+	},
+	
+	createTicket: function() {
+		var subject = this.$("input[name='subject']").val();
+		var descr = this.$(".newDescr").val() || " ";
+		
+		if(!subject) {
+			alert("You have to provide a subject.");
+		} else {
+			var ticket = new app.TicketModel({
+				subject: subject,
+				description: descr,
+				state: "to_approve",
+			});
+			
+			ticket.save();
+		}
 	}
 });

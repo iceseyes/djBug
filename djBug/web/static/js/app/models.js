@@ -23,7 +23,10 @@ app.TicketModel = Backbone.Model.extend({
 	},
 	
 	url: function() {
-		return app.tickets_url + this.get("id") + "/";
+		if(this.get("id"))
+			return app.tickets_url + this.get("id") + "/";
+		else
+			return app.tickets_url;
 	}
 });
 

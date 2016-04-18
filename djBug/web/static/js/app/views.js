@@ -127,7 +127,7 @@ app.HomeView = Backbone.View.extend({
 	
 	createTicket: function() {
 		var subject = this.$("input[name='subject']").val();
-		var descr = this.$(".newDescr").val() || " ";
+		var descr = this.$(".newDescr").val() || "";
 		
 		if(!subject) {
 			alert("You have to provide a subject.");
@@ -138,7 +138,21 @@ app.HomeView = Backbone.View.extend({
 				state: "to_approve",
 			});
 			
-			ticket.save();
+			var self = this;
+			ticket.save({}, {
+				success: function() {
+					self.tickets.fetch();
+					self.hideNewForm();
+					self.$("input[name='subject']").val("");
+					self.$(".newDescr").val("")
+				}, error: function() {
+					alert("An error as occured.");
+					self.tickets.fetch();
+					self.hideNewForm();
+					self.$("input[name='subject']").val("");
+					self.$(".newDescr").val("")
+				}
+			});
 		}
 	}
 });

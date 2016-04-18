@@ -29,7 +29,7 @@ class Ticket(models.Model):
     )
 
     subject = models.CharField(max_length=40, null=False, blank=False, default=None)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     state = models.CharField(max_length=10, choices=STATES, default=STATE_TO_APPROVE)
     created_on = models.DateTimeField(auto_now_add=True)
     last_update_on = models.DateTimeField(auto_now=True)

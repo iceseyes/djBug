@@ -12,3 +12,4 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all().order_by('-last_update_on')
     serializer_class = TicketSerializer
     permission_classes = (AllowAny, )
+    ordering_fields = ('-last_update_on')

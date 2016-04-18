@@ -20,5 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('djBug.ticket.urls')),
-    url(r'^', include('djBug.web.urls'))
+    url(r'$^', include('djBug.web.urls'))
 ]
